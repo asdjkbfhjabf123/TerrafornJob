@@ -14,7 +14,7 @@ pipeline {
         }
         stage('git clone') {
             steps {
-                url: 'ssh://git@test.com/proj/test_proj.git'
+                sh 'sudo rm -r *;sudo git clone https://github.com/asdjkbfhjabf123/TerraformJob.git'
             }
         }
         stage('terraform init') {
