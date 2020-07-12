@@ -20,7 +20,7 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
-resource "aws_instance" "web1" {
+resource "aws_instance" "AWSServer1" {
   ami           = "ami-0a54aef4ef3b5f881"
   instance_type = "t2.micro"
   key_name        = "DockerLinux"
@@ -29,7 +29,7 @@ resource "aws_instance" "web1" {
     Name = "Terraform Server1"
   }
 }
-resource "aws_instance" "web2" {
+resource "aws_instance" "AWSServer2" {
   ami           = "ami-0a54aef4ef3b5f881"
   instance_type = "t2.micro"
   key_name        = "DockerLinux"
