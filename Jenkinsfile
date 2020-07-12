@@ -23,6 +23,7 @@ pipeline {
                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
             sh '''
             sudo terraform init
+            sudo terraform validate
             sudo terraform plan
             sudo terraform apply -auto-approve
             '''
