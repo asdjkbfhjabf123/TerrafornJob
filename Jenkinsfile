@@ -19,12 +19,11 @@ pipeline {
         }
         stage('terraform init') {
             steps {
-                sh 'sudo terraform init'
-            }
-        }
-        stage('terraform plan') {
-            steps {
-                sh 'sudo terraform plan'
+                withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                      string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+            sh '''
+            terraform init
+            terraform plan
             }
         }
         stage('terraform ended') {
