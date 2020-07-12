@@ -4,7 +4,7 @@
 
 variable "access_key" {
     description = "AWS Access Key"
-    default = "<AKIA5CD4POIXXM62TI5R>"
+    default = "AKIA5CD4POIXXM62TI5R"
 }
 
 variable "secret_key" {
