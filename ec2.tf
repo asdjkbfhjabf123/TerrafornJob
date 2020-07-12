@@ -20,7 +20,9 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
-
+resource "aws_key_pair" "main" {
+  public_key = "/home/ec2-user/DockerLinux.pem"
+  }
 resource "aws_instance" "web" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
