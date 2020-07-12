@@ -24,14 +24,14 @@ pipeline {
             sh '''
             terraform init
             terraform plan
+            terraform apply -auto-approve
             }
+          }
         }
         stage('terraform ended') {
             steps {
                 sh 'echo "Ended....!!"'
             }
         }
-
-        
     }
 }
