@@ -22,9 +22,9 @@ pipeline {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
             sh '''
-            terraform init
-            terraform plan
-            terraform apply -auto-approve
+            sudo terraform init
+            sudo terraform plan
+            sudo terraform apply -auto-approve
             '''
             }
           }
