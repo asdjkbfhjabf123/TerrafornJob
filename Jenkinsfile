@@ -24,7 +24,7 @@ pipeline {
         }
         stage('terraform plan') {
             steps {
-                sh 'ls ./jenkins; sudo /home/ec2-user/terraform plan ./jenkins'
+                sh 'sudo terraform plan'
             }
         }
         stage('terraform ended') {
