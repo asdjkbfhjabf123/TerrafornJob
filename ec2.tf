@@ -29,5 +29,5 @@ resource "aws_instance" "Master" {
   instance_type = "t2.micro"
 }
 output "ip"{
-value= "${aws_instance.web.public_ip}"
+value= "${aws_instance.Master.public_ip}"
 }
