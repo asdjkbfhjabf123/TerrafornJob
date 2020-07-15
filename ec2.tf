@@ -5,6 +5,10 @@ provider "aws" {
 terraform {
   required_version = ">= 0.12"
 }
+resource "aws_key_pair" "main" { 
+public_key = file(var.public_key_file) 
+tags = local.tags
+}
 data "aws_ami" "ubuntu" {
   most_recent = true
 
