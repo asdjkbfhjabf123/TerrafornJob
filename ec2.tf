@@ -20,7 +20,11 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
-resource "aws_instance" "web" {
+resource "aws_instance" "Worker" {
+  ami           = "${data.aws_ami.ubuntu.id}"
+  instance_type = "t2.micro"
+}
+resource "aws_instance" "Master" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
 }
