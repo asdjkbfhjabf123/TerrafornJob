@@ -32,6 +32,12 @@ resource "aws_instance" "Master" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
 }
+resource "null_resource" "create_host_file" {
+provisioner "local-exec" {
+command = <<-EOF
+sudo echo "${aws_instance.Master.public_ip}" | sudo tee /home/ec2-user/hosts
+EOF
+}
 output "ip"{
 value= "${aws_instance.Master.public_ip}"
 }
