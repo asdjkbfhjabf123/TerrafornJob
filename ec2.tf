@@ -38,6 +38,7 @@ command = <<-EOF
 sudo echo "${aws_instance.Master.public_ip}" | sudo tee /home/ec2-user/hosts
 EOF
 }
+  }
 output "ip"{
 value= "${aws_instance.Master.public_ip}"
 }
