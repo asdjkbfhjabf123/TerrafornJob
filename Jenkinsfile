@@ -4,7 +4,7 @@ node {
     }
     stage("Maven Clean Build") {
       // def mvnHome = tool name: 'Maven', type: 'maven'
-       sh "${mvnHome}/bin/mvn package"
+       sh "mvn package"
     }
     stage('terraform started') {
                 sh 'echo "Started...!" '
