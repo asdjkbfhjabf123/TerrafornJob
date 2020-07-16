@@ -3,7 +3,7 @@ node {
         git 'https://github.com/asdjkbfhjabf123/TerraformJob.git'
     }
     stage("Maven Clean Build") {
-       def mvnHome = tool name: 'Maven', type: 'maven'
+      // def mvnHome = tool name: 'Maven', type: 'maven'
        sh "${mvnHome}/bin/mvn package"
     }
     stage('terraform started') {
