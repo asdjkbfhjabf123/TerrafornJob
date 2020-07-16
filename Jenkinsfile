@@ -1,24 +1,22 @@
-pipeline {
-    agent {
-        node {
-            label 'master'
-        }
+node {
+    stage("Git Clone") {
+        git 'https://github.com/asdjkbfhjabf123/TerraformJob.git'
     }
-
-    stages {
-
-        stage('terraform started') {
-            steps {
+    stage("Maven Clean Build") {
+       def mvnHome = tool name: 'Maven', type: 'maven'
+       sh "${mvnHome}/bin/mvn package"
+    }
+    stage('terraform started') {
                 sh 'echo "Started...!" '
-            }
         }
-        stage('git clone') {
-            steps {
-                 git 'https://github.com/asdjkbfhjabf123/TerraformJob.git'
-            }
-        }
-        stage('terraform init') {
-            steps {
+    stage("Create Docker Image") {
+        sh "docker build -t 853306/spring-boot-mongo ."
+    }
+    stage("Push Docker Image") {
+    sh "docker login -u 853306 -p pintu1996"
+    sh "docker push 853306/spring-boot-mongo "
+    }
+    stage('terraform init, validate, plan and apply') {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
             sh '''
@@ -27,8 +25,16 @@ pipeline {
             sudo terraform plan
             sudo terraform apply -auto-approve
             '''
+            } 
+           input 'destroy'
+            stage('terraform destroy') {
+                withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                      string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh 'sudo terraform destroy -auto-approve'
+            }
             }
           }
-        }
-    }
+         stage("Deploy Application To K8s") {
+          sh 'kubectl create -f springBootMongo.yml' 
+}
 }
